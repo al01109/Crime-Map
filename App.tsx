@@ -7,18 +7,15 @@ import {
   Text,
   View,
 } from 'react-native';
-import HomeScreen from './src/screens/Home';
-import QuickLinksScreen from './src/screens/QuickLinks';
-import LocationSearchScreen from './src/screens/LocationSearch';
-
+import Router from './src/navigation/Router';
+import 'react-native-gesture-handler'
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView>
+    <>
        <StatusBar barStyle="dark-content" />
-      {/* <HomeScreen></HomeScreen> */}
-      <LocationSearchScreen />
-    </SafeAreaView>
+       <Router />
+    </>
   );
 }
 
