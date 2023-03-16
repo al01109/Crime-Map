@@ -1,44 +1,37 @@
-import { View, Text, TextInput, FlatList, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View } from 'react-native'
+import React from 'react'
 import styles from './styles'
-import searchResults from '../../../assets/data/search'
-import Entype from 'react-native-vector-icons/Entypo'
-import Fontisto from 'react-native-vector-icons/Fontisto'
 import { useNavigation } from '@react-navigation/native'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import AutocompleteSuggestionRow from './AutocompleteSuggestionRow'
+
 
 const LocationSearchScreen = () => {
   const navigation = useNavigation();
-  const [inputText, setInputText] = useState('');
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <Fontisto name='search' size={20} color={'#f15454'} />
-        <TextInput
-          style={styles.textInput}
-          placeholder={' Search for crimes at a specific location...'}
-          value={inputText}
-          onChangeText={setInputText}
-        />
-      </View>
-      <FlatList 
-        data={searchResults}
-        renderItem={({item}) => (
-          <Pressable 
-            onPress={() =>
-              navigation.navigate('Home', {
-                screen: 'Explore',
-                params: {
-                  screen: 'SearchResults'
-                },
-              })
-            }
-            style={styles.row}>
-            <View style={styles.iconContainer}>
-                <Entype name={'location-pin'} size={35} color={'black'}/>
-            </View>
-            <Text style={styles.locationText}>{item.description}</Text>
-          </Pressable>
-        )}
+      <GooglePlacesAutocomplete
+        placeholder='Search for crimes at a specific location...'
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+          navigation.navigate('Home', {
+            screen: 'Explore',
+            params: {
+              screen: 'SearchResults'
+            },
+          })
+        }}
+        styles={{
+          textInput: styles.textInput
+        }}
+        fetchDetails
+        query={{
+          key: 'AIzaSyDz9fmfYk4QfwrIQDWCACVHXZxDL1EAQxM',
+          language: 'en',
+        }}
+        suppressDefaultStyles
+        renderRow={(item) => <AutocompleteSuggestionRow item={item}/>}
       />
     </View> 
   )
