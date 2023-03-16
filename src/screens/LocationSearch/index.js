@@ -36,4 +36,5 @@ const LocationSearchScreen = () => {
     </View> 
   )
 }
+
 export default LocationSearchScreen

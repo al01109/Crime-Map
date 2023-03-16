@@ -20,18 +20,13 @@ const Router = () => {
             }}
         />
         <Stack.Screen
-            name={"Home Screen"}
-            component={HomeScreen}
-            options={{
-            }}
-        />
-        <Stack.Screen
             name={"Location Search"}
             component={LocationSearchScreen}
             options={{
-                title: "Search for Crimes"
+                title: "Search for Crimes", 
             }}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
   )
