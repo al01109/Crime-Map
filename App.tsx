@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import Router from './src/navigation/Router';
-import 'react-native-gesture-handler'
 
 function App(): JSX.Element {
   return (

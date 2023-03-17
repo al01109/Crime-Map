@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './styles'
 import { useNavigation } from '@react-navigation/native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
@@ -8,9 +8,16 @@ import AutocompleteSuggestionRow from './AutocompleteSuggestionRow'
 
 const LocationSearchScreen = () => {
   const navigation = useNavigation();
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, [])
+
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
+        ref={ref}
         placeholder='Search for crimes at a specific location...'
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
@@ -37,4 +44,4 @@ const LocationSearchScreen = () => {
   )
 }
 
-export default LocationSearchScreen
+export default LocationSearchScreen;
