@@ -1,9 +1,10 @@
 import { View, FlatList } from 'react-native'
 import React from 'react'
-import crimes from '../../../assets/data/crimes'
+//import crimes from '../../../assets/data/crimes'
 import Crime from '../../components/Crime'
 
-const CrimesScreen = () => {
+const CrimesScreen = (props) => {
+   const { crimes } = props;
   return (
     <View>
       <FlatList

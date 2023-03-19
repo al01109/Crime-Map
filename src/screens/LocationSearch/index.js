@@ -25,7 +25,11 @@ const LocationSearchScreen = () => {
           navigation.navigate('Home', {
             screen: 'Explore',
             params: {
-              screen: 'SearchResults'
+              screen: 'SearchResults',
+              params: {
+                longitude: details?.geometry?.location.lng,
+                latitude: details?.geometry?.location.lat,
+              }
             },
           })
         }}
@@ -36,6 +40,7 @@ const LocationSearchScreen = () => {
         query={{
           key: 'AIzaSyDz9fmfYk4QfwrIQDWCACVHXZxDL1EAQxM',
           language: 'en',
+          components: 'country:uk',
         }}
         suppressDefaultStyles
         renderRow={(item) => <AutocompleteSuggestionRow item={item}/>}
