@@ -1,6 +1,7 @@
 import { View, useWindowDimensions } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView from "react-native-map-clustering";
 import CustomMarker from '../../components/CustomMarker';
 //import crimes from '../../../assets/data/crimes';
 import CrimeCarousellItem from '../../components/CrimeCarouselItem';
@@ -33,8 +34,8 @@ const CrimesMap = (props) => {
     const region = {
       latitude: parseFloat(selectedCrime.location.latitude),
       longitude: parseFloat(selectedCrime.location.longitude),
-      latitudeDelta: delta,
-      longitudeDelta: delta,
+      //latitudeDelta: delta,
+      //longitudeDelta: delta,
     }
     map.current.animateToRegion(region);
   }, [selectedCrimeId])
@@ -45,9 +46,14 @@ const CrimesMap = (props) => {
         ref={map}
         style={{width: '100%', height: '100%'}}
         provider={PROVIDER_GOOGLE}
+        clusterColor={'navy'}
+        radius={width * 0.06}
+        maxZoom={20}
+        minZoom={1}
+        minPoints={2}
+        extent={512}
+        nodeSize={16}
         initialRegion={{
-        // latitude: 28.32798,
-        // longitude: -16.51248,
         latitude: latitude,
         longitude: longitude,
         latitudeDelta: delta,
@@ -87,6 +93,13 @@ const CrimesMap = (props) => {
           decelerationRate={'fast'}
           viewabilityConfig={viewConfig.current}
           onViewableItemsChanged={onViewChange.current}
+          initialScrollIndex={0}
+          onScrollToIndexFailed={info => {
+            const wait = new Promise(resolve => setTimeout(resolve, 500));
+            wait.then(() => {
+              flatlist.current?.scrollToIndex({ index: info.index, animated: true });
+            });
+          }}
          />
       </View>
     </View>

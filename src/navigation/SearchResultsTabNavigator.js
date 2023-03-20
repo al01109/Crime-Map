@@ -3,6 +3,7 @@ import {  createMaterialTopTabNavigator } from '@react-navigation/material-top-t
 import { useRoute } from "@react-navigation/native";
 import CrimesScreen from '../screens/Crimes';
 import CrimesMap from '../screens/CrimesMap';
+import CrimeStatistics from '../screens/CrimeStats';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,7 +26,7 @@ const SearchResultsTabNavigator = (props) => {
     }
 
     fetchCrimes();
-  }, [])
+  }, [longitude, latitude])
 
   return (
     <Tab.Navigator>
@@ -37,6 +38,11 @@ const SearchResultsTabNavigator = (props) => {
       <Tab.Screen name={"List"}>
         {() => (
           <CrimesScreen crimes={crimes}></CrimesScreen>
+        )}
+      </Tab.Screen>
+      <Tab.Screen name={"Statistics"}>
+        {() => (
+          <CrimeStatistics crimes={crimes}></CrimeStatistics>
         )}
       </Tab.Screen>
     </Tab.Navigator>

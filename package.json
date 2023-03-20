@@ -18,6 +18,7 @@
     "react-native": "0.71.4",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-google-places-autocomplete": "^2.5.1",
+    "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "^1.4.0",
     "react-native-pager-view": "^6.1.4",
     "react-native-reanimated": "^3.0.2",

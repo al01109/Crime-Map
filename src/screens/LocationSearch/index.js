@@ -21,7 +21,6 @@ const LocationSearchScreen = () => {
         placeholder='Search for crimes at a specific location...'
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-          console.log(data, details);
           navigation.navigate('Home', {
             screen: 'Explore',
             params: {
