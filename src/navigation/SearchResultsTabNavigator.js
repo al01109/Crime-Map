@@ -35,7 +35,7 @@ const SearchResultsTabNavigator = (props) => {
           <CrimesMap crimes={crimes} longitude={longitude} latitude={latitude}></CrimesMap>
         )}
       </Tab.Screen>
-      <Tab.Screen name={"List"}>
+      <Tab.Screen name={"Comments"}>
         {() => (
           <CrimesScreen crimes={crimes}></CrimesScreen>
         )}
