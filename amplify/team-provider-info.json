@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-crimemap-dev-35913-authRole",
+      "UnauthRoleArn": "arn:aws:iam::265212621054:role/amplify-crimemap-dev-35913-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::265212621054:role/amplify-crimemap-dev-35913-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-crimemap-dev-35913-deployment",
+      "UnauthRoleName": "amplify-crimemap-dev-35913-unauthRole",
+      "StackName": "amplify-crimemap-dev-35913",
+      "StackId": "arn:aws:cloudformation:eu-west-2:265212621054:stack/amplify-crimemap-dev-35913/31e71c10-cb82-11ed-82db-066b19d1e5fa",
+      "AmplifyAppId": "d2m6sak2zlky8o"
+    },
+    "categories": {
+      "auth": {
+        "crimemap5fd7a791": {}
+      }
+    }
+  }
+}
