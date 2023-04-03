@@ -1,4 +1,4 @@
-import { View, Text, TextInput, FlatList, ScrollView } from 'react-native'
+import { View, Text, TextInput, FlatList } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import styles from './styles'
 import { useRoute } from "@react-navigation/native"
@@ -6,18 +6,13 @@ import { API } from 'aws-amplify';
 import * as queries from '../../graphql/queries'
 import * as mutations from '../../graphql/mutations'
 import { Button } from '@aws-amplify/ui-react-native/dist/primitives';
-import { Comment } from '../../models';
 import CrimeComment from '../../components/Comment'
-
-const initialState = { persistent_id: '', description: '' };
 
 const CommentsScreen = (props) => {
   const route = useRoute();
   const { crime }  = route.params;
   const [comments, setComments] = useState([]);
-  const [formState, setFormState] = useState(initialState);
-
-
+  const [formState, setFormState] = useState({persistent_id: crime.persistent_id, description: ''});
 
   const variables = {
     filter: {
@@ -33,14 +28,15 @@ const CommentsScreen = (props) => {
 
   useEffect(() => {
     fetchComments();
-    setInput('persistent_id', crime.persistent_id)
   }, []);
 
   async function fetchComments() {
+    
+    console.log(variables.filter.persistent_id.contains)
     try{
       const commentsData = await API.graphql({
         query: queries.listComments,
-        variables: variables
+        variables: variables  
       });
       const commentsList = commentsData.data.listComments.items;
       setComments(commentsList);
