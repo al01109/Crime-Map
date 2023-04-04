@@ -7,6 +7,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ExploreNavigator from './ExploreNavigator';
 import ProfileScreen from '../screens/Profile';
+import AccountNavigator from './AccountNavigator';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -42,9 +44,10 @@ const HomeTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={"Profile"}
-        component={ProfileScreen}
+        name={"Account"}
+        component={AccountNavigator}
         options={{
+            headerShown: false,
             tabBarIcon: ({ color, size }) => (
                 <Feather name="settings" color={color} size={size} />
             )
