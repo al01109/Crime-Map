@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 24,
         marginTop: 25,
-    }
+    },
 });
 
 export default styles;

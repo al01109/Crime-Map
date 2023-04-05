@@ -10,7 +10,7 @@ const DateSelect = (props) => {
   const navigation = useNavigation();
   const { longitude, latitude, name }  = route.params;
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState(new Date(2022, 10));
+  const [date, setDate] = useState(new Date(2023, 1));
 
   useEffect(() => {
     setShow(true);
@@ -50,8 +50,8 @@ const DateSelect = (props) => {
         value={date}
         selectedDate={date}
         onChange={onValueChange}
-        minimumDate={new Date(2020, 0)}
-        maximumDate={new Date(2022, 10)}
+        minimumDate={new Date(2020, 2)}
+        maximumDate={new Date(2023, 1)}
         locale="en"
       />
       )}
