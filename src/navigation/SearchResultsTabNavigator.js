@@ -12,12 +12,11 @@ const SearchResultsTabNavigator = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
   const { longitude, latitude, date, name }  = route.params;
-  const formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1)
   const [crimes, setCrimes] = useState([]);
   useEffect(() => {
     const fetchCrimes = async () => {
       try {
-        fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${latitude}&lng=${longitude}&date=${formattedDate}`)
+        fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${latitude}&lng=${longitude}&date=${date}`)
         .then(res => res.json())
         .then((result) => {
           setCrimes(result)
@@ -28,7 +27,7 @@ const SearchResultsTabNavigator = (props) => {
     }
     fetchCrimes();
     navigation.setOptions({
-      title: (name + ' ' + formattedDate),
+      title: (name + ' ' + date),
       headerLeft: () => (
         <HeaderBackButton
           onPress={() => navigation.navigate('Home', {
@@ -40,7 +39,7 @@ const SearchResultsTabNavigator = (props) => {
         />
       ),
     });
-  }, [longitude, latitude])
+  }, [])
 
   return (
     <Tab.Navigator>

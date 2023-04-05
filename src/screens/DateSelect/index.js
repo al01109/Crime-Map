@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React, {useState} from 'react'
+import { View, Text } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useRoute } from "@react-navigation/native"
 import MonthYearPicker from 'react-native-month-year-picker'
@@ -9,8 +9,12 @@ const DateSelect = (props) => {
   const route = useRoute();
   const navigation = useNavigation();
   const { longitude, latitude, name }  = route.params;
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(2022, 10));
+
+  useEffect(() => {
+    setShow(true);
+  }, [])
 
   function onValueChange(event, newDate) {
     if (event == 'dateSetAction') {
@@ -23,7 +27,7 @@ const DateSelect = (props) => {
           params: {
             longitude: longitude,
             latitude: latitude,
-            date: newDate,
+            date: newDate.getFullYear() + "-" + (newDate.getMonth() + 1),
             name: name
           },
         },

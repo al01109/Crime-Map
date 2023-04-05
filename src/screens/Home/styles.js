@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         marginLeft: 25,
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: 3,
       },
       buttonText: {
         fontSize: 16,
@@ -39,12 +40,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         top: 20,
-        zIndex: 4,
+        zIndex: 3,
       },
       searchButtonText: {
         fontSize: 16,
         fontWeight: 'bold',
       },
+      container: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 2,
+      }
 });
 
 export default styles;

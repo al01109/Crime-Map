@@ -8,7 +8,6 @@ import { FlatList } from 'react-native-gesture-handler';
 
 const CrimesMap = (props) => {
   const { crimes, longitude, latitude } = props;
-
   const delta = 0.1;
 
   const [selectedCrimeId, setSelectedCrimeId] = useState(null);
