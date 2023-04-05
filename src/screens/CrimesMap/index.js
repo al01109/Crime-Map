@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapView from "react-native-map-clustering";
 import CustomMarker from '../../components/CustomMarker';
-//import crimes from '../../../assets/data/crimes';
 import CrimeCarousellItem from '../../components/CrimeCarouselItem';
 import { FlatList } from 'react-native-gesture-handler';
 

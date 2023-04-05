@@ -14,7 +14,6 @@ const Router = (props) => {
         name={'Profile'}
         component={ProfileScreen}
         options={{
-          //headerShown: false,
         }}
       />
 

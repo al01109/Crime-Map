@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/Home';
 import SearchResultsTabNavigator from "./SearchResultsTabNavigator";
 import CommentsScreen from '../screens/Comments';
+import DateSelect from '../screens/DateSelect';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,14 @@ const Router = (props) => {
         component={HomeScreen}
         options={{
           headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name={'DateSelect'}
+        component={DateSelect}
+        options={{
+          title: 'Date Select',
         }}
       />
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import { HeaderBackButton } from '@react-navigation/elements';
 import {  createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import CrimesScreen from '../screens/Crimes';
 import CrimesMap from '../screens/CrimesMap';
 import CrimeStatistics from '../screens/CrimeStats';
@@ -9,13 +10,14 @@ const Tab = createMaterialTopTabNavigator();
 
 const SearchResultsTabNavigator = (props) => {
   const route = useRoute();
-  const { longitude, latitude }  = route.params;
+  const navigation = useNavigation();
+  const { longitude, latitude, date, name }  = route.params;
+  const formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1)
   const [crimes, setCrimes] = useState([]);
-
   useEffect(() => {
     const fetchCrimes = async () => {
       try {
-        fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${latitude}&lng=${longitude}`)
+        fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${latitude}&lng=${longitude}&date=${formattedDate}`)
         .then(res => res.json())
         .then((result) => {
           setCrimes(result)
@@ -24,8 +26,20 @@ const SearchResultsTabNavigator = (props) => {
         console.log(e);
       }
     }
-
     fetchCrimes();
+    navigation.setOptions({
+      title: (name + ' ' + formattedDate),
+      headerLeft: () => (
+        <HeaderBackButton
+          onPress={() => navigation.navigate('Home', {
+            screen: 'Explore',
+            params: {
+              screen: 'Welcome'
+            }
+          })}
+        />
+      ),
+    });
   }, [longitude, latitude])
 
   return (

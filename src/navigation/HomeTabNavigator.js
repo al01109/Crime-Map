@@ -6,7 +6,6 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ExploreNavigator from './ExploreNavigator';
-import ProfileScreen from '../screens/Profile';
 import AccountNavigator from './AccountNavigator';
 
 

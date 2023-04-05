@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import AutocompleteSuggestionRow from './AutocompleteSuggestionRow'
 
-
 const LocationSearchScreen = () => {
   const navigation = useNavigation();
   const ref = useRef();
@@ -24,10 +23,11 @@ const LocationSearchScreen = () => {
           navigation.navigate('Home', {
             screen: 'Explore',
             params: {
-              screen: 'SearchResults',
+              screen: 'DateSelect',
               params: {
                 longitude: details?.geometry?.location.lng,
                 latitude: details?.geometry?.location.lat,
+                name: details?.address_components[0]?.short_name,
               }
             },
           })
