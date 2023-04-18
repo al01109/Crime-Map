@@ -30,9 +30,7 @@ const CommentsScreen = (props) => {
     fetchComments();
   }, []);
 
-  async function fetchComments() {
-    
-    console.log(variables.filter.persistent_id.contains)
+  async function fetchComments() {    
     try{
       const commentsData = await API.graphql({
         query: queries.listComments,

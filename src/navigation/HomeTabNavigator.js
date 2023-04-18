@@ -1,12 +1,12 @@
 import React from 'react'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
-import HomeScreen from '../screens/Home';
 import QuickLinksScreen from '../screens/QuickLinks'; 
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ExploreNavigator from './ExploreNavigator';
 import AccountNavigator from './AccountNavigator';
+import SavedCrimesScreen from '../screens/SavedCrimes';
 
 
 const Tab = createBottomTabNavigator();
@@ -25,8 +25,8 @@ const HomeTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={"Comments"}
-        component={HomeScreen}
+        name={"Saved Crimes"}
+        component={SavedCrimesScreen}
         options={{
             tabBarIcon: ({ color, size }) => (
                 <Fontisto name="comments" color={color} size={size} />

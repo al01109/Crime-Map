@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
+import Marker from 'react-native-maps'
 import React from 'react'
-import { Marker } from 'react-native-maps';
 
 const CustomMarker = (props) => {
     const { coordinate, category, onPress, isSelected } = props;

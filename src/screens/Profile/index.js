@@ -25,7 +25,6 @@ const ProfileScreen = (props) => {
         {
           text: "Yes",
           onPress: () => {
-            setShowBox(false);
             deleteAccount();
           },
         },

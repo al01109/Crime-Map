@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import styles from './styles'
-import { useNavigation } from '@react-navigation/native'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import AutocompleteSuggestionRow from './AutocompleteSuggestionRow'
+import useNavigation from '@react-navigation/native'
+import GooglePlacesAutocomplete from 'react-native-google-places-autocomplete'
 
 const LocationSearchScreen = () => {
   const navigation = useNavigation();

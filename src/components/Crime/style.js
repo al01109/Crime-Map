@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     location: {
         fontSize: 14,
         paddingBottom: 10
+    },
+    like: {
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
     }
 });
 
