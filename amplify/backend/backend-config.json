@@ -23,25 +23,27 @@
     }
   },
   "auth": {
-    "crimemap5fd7a791": {
+    "CrimeMap": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "ON",
         "mfaTypes": [
-          "SMS"
+          "SMS",
+          "TOTP"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "PHONE_NUMBER"
         ],
         "socialProviders": [],
         "usernameAttributes": [],
         "verificationMechanisms": [
-          "EMAIL"
+          "PHONE_NUMBER"
         ]
       },
       "providerPlugin": "awscloudformation",

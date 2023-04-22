@@ -1,8 +1,9 @@
+import { View, Text } from 'react-native'
 import React from 'react'
-import NavigationContainer from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import LocationSearchScreen from '../screens/LocationSearch'
 import HomeTabNavigator from './HomeTabNavigator'
-import createStackNavigator from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator();
 

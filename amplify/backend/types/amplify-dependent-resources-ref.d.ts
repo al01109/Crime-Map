@@ -7,9 +7,10 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "auth": {
-    "crimemap5fd7a791": {
+    "CrimeMap": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
+      "CreatedSNSRole": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
       "UserPoolArn": "string",

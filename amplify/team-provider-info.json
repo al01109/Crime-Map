@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "crimemap5fd7a791": {}
+        "crimemap5fd7a791": {},
+        "CrimeMap": {}
       },
       "api": {
         "crimemap": {}
