@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "crimemap": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "crimemap": {
       "dependsOn": [],
