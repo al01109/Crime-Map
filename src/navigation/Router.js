@@ -10,7 +10,7 @@ const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+        <Stack.Screen
             name={"Home"}
             component={HomeTabNavigator}
             options={{

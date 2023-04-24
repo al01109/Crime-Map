@@ -1,7 +1,7 @@
-import { View, Text, FlatList } from 'react-native'
-import React from 'react'
-import quickLinksFeed from '../../../assets/data/quickLinksFeed'
-import QuickLink from '../../components/QuickLink'
+import {View, Text, FlatList} from 'react-native';
+import React from 'react';
+import quickLinksFeed from '../../../assets/data/quickLinksFeed';
+import QuickLink from '../../components/QuickLink';
 
 const QuickLinksScreen = () => {
   return (
@@ -11,7 +11,7 @@ const QuickLinksScreen = () => {
         renderItem={({item}) => <QuickLink link={item} />}
       />
     </View>
-  )
-}
+  );
+};
 
-export default QuickLinksScreen
+export default QuickLinksScreen;

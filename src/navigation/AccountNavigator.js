@@ -3,25 +3,17 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ProfileScreen from '../screens/Profile';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 
-
 const Stack = createStackNavigator();
 
-const Router = (props) => {
+const Router = props => {
   return (
     <Stack.Navigator>
-
-      <Stack.Screen
-        name={'Profile'}
-        component={ProfileScreen}
-        options={{
-        }}
-      />
+      <Stack.Screen name={'Profile'} component={ProfileScreen} options={{}} />
 
       <Stack.Screen
         name={'Privacy Policy'}
         component={PrivacyPolicy}
-        options={{
-        }}
+        options={{}}
       />
     </Stack.Navigator>
   );
