@@ -25,7 +25,6 @@ const CrimeStatistics = (props) => {
     const screenWidth = Dimensions.get("window").width;
     const screenHeight = Dimensions.get("window").height;
     const categories = [
-      { name: "All Crime", value: "all-crime" },
       { name: "Anti-social Behaviour", value: "anti-social-behaviour" },
       { name: "Bicycle Theft", value: "bicycle-theft" },
       { name: "Burglary", value: "burglary" },
