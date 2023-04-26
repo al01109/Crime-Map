@@ -53,7 +53,7 @@ const HomeScreen = () => {
         onPress={() => navigation.navigate('Location Search')}>
         <Fontisto name="search" size={25} color={'#f15454'} />
         <Text style={styles.searchButtonText}>
-          {' '}
+          {'  '}
           Search for crimes at a specific location...
         </Text>
       </Pressable>

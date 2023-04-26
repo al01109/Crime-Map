@@ -5,10 +5,11 @@ import {useRoute} from '@react-navigation/native';
 import MonthYearPicker from 'react-native-month-year-picker';
 import styles from './styles';
 
-const DateSelect = props => {
-  const route = useRoute();
+const DateSelect = () => {
+  const {
+    params: {longitude, latitude, name},
+  } = useRoute();
   const navigation = useNavigation();
-  const {longitude, latitude, name} = route.params;
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(2023, 1));
 
@@ -16,31 +17,42 @@ const DateSelect = props => {
     setShow(true);
   }, []);
 
-  function onValueChange(event, newDate) {
-    if (event == 'dateSetAction') {
+  const handleDateChange = (event, selectedDate) => {
+    if (event === 'dateSetAction') {
       setShow(false);
-      setDate(newDate);
-      navigation.navigate('Home', {
-        screen: 'Explore',
-        params: {
-          screen: 'SearchResults',
-          params: {
-            longitude: longitude,
-            latitude: latitude,
-            date: newDate.getFullYear() + '-' + (newDate.getMonth() + 1),
-            name: name,
-          },
-        },
-      });
-    } else if (event == 'dismissedAction') {
-      navigation.navigate('Home', {
-        screen: 'Explore',
-        params: {
-          screen: 'Welcome',
-        },
-      });
+      setDate(selectedDate);
+      navigateToSearchResults(longitude, latitude, selectedDate, name);
+    } else if (event === 'dismissedAction') {
+      navigateToWelcomeScreen();
     }
-  }
+  };
+
+  const navigateToSearchResults = (longitude, latitude, selectedDate, name) => {
+    const formattedDate = `${selectedDate.getFullYear()}-${
+      selectedDate.getMonth() + 1
+    }`;
+    navigation.navigate('Home', {
+      screen: 'Explore',
+      params: {
+        screen: 'SearchResults',
+        params: {
+          longitude,
+          latitude,
+          date: formattedDate,
+          name,
+        },
+      },
+    });
+  };
+
+  const navigateToWelcomeScreen = () => {
+    navigation.navigate('Home', {
+      screen: 'Explore',
+      params: {
+        screen: 'Welcome',
+      },
+    });
+  };
 
   return (
     <View>
@@ -49,7 +61,7 @@ const DateSelect = props => {
         <MonthYearPicker
           value={date}
           selectedDate={date}
-          onChange={onValueChange}
+          onChange={handleDateChange}
           minimumDate={new Date(2020, 2)}
           maximumDate={new Date(2023, 1)}
           locale="en"

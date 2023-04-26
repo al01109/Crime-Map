@@ -1,4 +1,4 @@
-import {View, useWindowDimensions} from 'react-native';
+import {View, useWindowDimensions, ActivityIndicator} from 'react-native';
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
@@ -8,7 +8,7 @@ import {FlatList} from 'react-native-gesture-handler';
 
 const CrimesMap = ({crimes, longitude, latitude}) => {
   const delta = 0.1;
-
+  const [loading, setLoading] = useState(true);
   const [selectedCrimeId, setSelectedCrimeId] = useState(null);
   const width = useWindowDimensions().width;
   const flatlist = useRef();
@@ -39,8 +39,29 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
     map.current.animateToRegion(region);
   }, [selectedCrimeId]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1800);
+  }, []);
+
   return (
     <View style={{width: '100%', height: '100%'}}>
+      {loading && (
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2,
+          }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
       <MapView
         ref={map}
         style={{width: '100%', height: '100%'}}

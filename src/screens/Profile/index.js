@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, Pressable, Text, Button, Alert} from 'react-native';
+import {View, Pressable, Text, Button, Alert, StyleSheet} from 'react-native';
 import {Auth} from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
-import styles from './styles';
 
 const ProfileScreen = props => {
   const [user, setUser] = useState(null);
@@ -32,6 +31,7 @@ const ProfileScreen = props => {
         // Does nothing but dismiss the dialog when tapped
         {
           text: 'No',
+          onPress: () => {},
         },
       ],
     );
@@ -80,3 +80,34 @@ const ProfileScreen = props => {
 };
 
 export default ProfileScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  userInfo: {
+    margin: 15,
+  },
+  label: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  data: {
+    fontSize: 18,
+  },
+  signOut: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+    width: '90%',
+  },
+  privacyPolicy: {
+    marginTop: 10,
+    fontSize: 18,
+  },
+  deleteAccount: {
+    marginTop: 10,
+    fontSize: 18,
+    color: 'red',
+  },
+});
