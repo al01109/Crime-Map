@@ -6,6 +6,7 @@ const CustomMarker = props => {
   const {coordinate, category, onPress, isSelected} = props;
   return (
     <Marker
+      //tracksViewChanges={false}
       coordinate={{
         latitude: parseFloat(coordinate.latitude),
         longitude: parseFloat(coordinate.longitude),

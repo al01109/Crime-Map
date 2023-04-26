@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
   filterButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#2196f3',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
     padding: 5,
     borderRadius: 5,
   },

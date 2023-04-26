@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   addComment: {
-    backgroundColor: '#009688',
+    backgroundColor: '#2196f3',
     marginHorizontal: 20,
     marginVertical: 10,
   },
