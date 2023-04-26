@@ -20,18 +20,15 @@ const SavedCrimesScreen = () => {
 
   async function fetchCrimes() {
     try {
-      AsyncStorage.getItem(key)
-        .then(stringifiedData => {
-          if (stringifiedData !== null) {
-            const data = JSON.parse(stringifiedData);
-            setSavedCrimes(data);
-          } else {
-            console.log('No data found for the given key');
-          }
-        })
-        .catch(error => console.log('Error while retrieving data: ', error));
-    } catch (err) {
-      console.log(err);
+      const stringifiedData = await AsyncStorage.getItem(key);
+      if (stringifiedData !== null) {
+        const data = JSON.parse(stringifiedData);
+        setSavedCrimes(data);
+      } else {
+        console.log('No data found for the given key');
+      }
+    } catch (error) {
+      console.log('Error while retrieving data: ', error);
     }
   }
 

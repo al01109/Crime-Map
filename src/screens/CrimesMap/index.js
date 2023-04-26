@@ -1,69 +1,61 @@
-import {View, useWindowDimensions, ActivityIndicator} from 'react-native';
-import React, {useEffect, useRef, useState, useCallback} from 'react';
+import {View, FlatList, useWindowDimensions, Text} from 'react-native';
+import React, {useEffect, useRef, useState, useCallback, useMemo} from 'react';
 import {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
-import CustomMarker from '../../components/CustomMarker';
 import CrimeCarousellItem from '../../components/CrimeCarouselItem';
-import {FlatList} from 'react-native-gesture-handler';
 
 const CrimesMap = ({crimes, longitude, latitude}) => {
   const delta = 0.1;
-  const [loading, setLoading] = useState(true);
   const [selectedCrimeId, setSelectedCrimeId] = useState(null);
   const width = useWindowDimensions().width;
-  const flatlist = useRef();
-  const map = useRef();
-  const viewConfig = useRef({
+  const flatlistRef = useRef();
+  const mapRef = useRef();
+  const viewConfigRef = useRef({
     itemVisiblePercentThreshold: 70,
     minimumViewTime: 250,
   });
 
-  const onViewChange = useCallback(({viewableItems}) => {
+  const onViewChanged = useCallback(({viewableItems}) => {
     if (viewableItems.length > 0) {
       const selectedCrime = viewableItems[0].item;
       setSelectedCrimeId(selectedCrime.id);
     }
   }, []);
 
-  useEffect(() => {
-    if (!selectedCrimeId || !flatlist.current) {
-      return;
+  const selectedCrimeIndex = useMemo(() => {
+    if (!selectedCrimeId) {
+      return null;
     }
-    const index = crimes.findIndex(crime => crime.id === selectedCrimeId);
-    flatlist.current.scrollToIndex({index});
-    const selectedCrime = crimes[index];
-    const region = {
-      latitude: parseFloat(selectedCrime.location.latitude),
-      longitude: parseFloat(selectedCrime.location.longitude),
-    };
-    map.current.animateToRegion(region);
-  }, [selectedCrimeId]);
+    return crimes.findIndex(crime => crime.id === selectedCrimeId);
+  }, [selectedCrimeId, crimes]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1800);
-  }, []);
+    if (!flatlistRef.current) {
+      return;
+    }
+    if (selectedCrimeIndex !== null) {
+      flatlistRef.current.scrollToIndex({index: selectedCrimeIndex});
+    }
+  }, [selectedCrimeIndex]);
+
+  useEffect(() => {
+    if (!mapRef.current) {
+      return;
+    }
+    if (selectedCrimeIndex !== null) {
+      const selectedCrime = crimes[selectedCrimeIndex];
+      const region = {
+        latitude: parseFloat(selectedCrime.location.latitude),
+        longitude: parseFloat(selectedCrime.location.longitude),
+      };
+      mapRef.current.animateToRegion(region);
+    }
+  }, [selectedCrimeIndex, crimes]);
 
   return (
     <View style={{width: '100%', height: '100%'}}>
-      {loading && (
-        <View
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 2,
-          }}>
-          <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-      )}
       <MapView
-        ref={map}
+        ref={mapRef}
         style={{width: '100%', height: '100%'}}
         provider={PROVIDER_GOOGLE}
         clusterColor={'navy'}
@@ -80,12 +72,6 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
           longitudeDelta: delta,
         }}>
         {crimes.map(({id, location, category}) => (
-          // <CustomMarker
-          //   coordinate={location}
-          //   category={category}
-          //   selected={id === selectedCrimeId}
-          //   onPress={() => setSelectedCrimeId(id)}
-          // />
           <Marker
             key={id}
             tracksViewChanges={false}
@@ -97,32 +83,21 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
             }}
             title={category}
             description={location.street.name}
-            pinColor={'navy'}
-          />
+            pinColor={'navy'}></Marker>
         ))}
       </MapView>
       <View style={{position: 'absolute', bottom: 10}}>
         <FlatList
-          ref={flatlist}
+          ref={flatlistRef}
           data={crimes}
           renderItem={({item}) => <CrimeCarousellItem crime={item} />}
           showsHorizontalScrollIndicator={false}
           horizontal
-          snapToInterval={width - 50}
+          snapToInterval={width - 10}
           snapToAlignment={'center'}
           decelerationRate={'fast'}
-          viewabilityConfig={viewConfig.current}
-          onViewableItemsChanged={onViewChange.current}
-          initialScrollIndex={0}
-          // onScrollToIndexFailed={info => {
-          //   const wait = new Promise(resolve => setTimeout(resolve, 500));
-          //   wait.then(() => {
-          //     flatlist.current.scrollToIndex({
-          //       index: info.index,
-          //       animated: true,
-          //     });
-          //   });
-          // }}
+          viewabilityConfig={viewConfigRef.current}
+          onViewableItemsChanged={onViewChanged.current}
         />
       </View>
     </View>

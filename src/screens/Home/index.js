@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -5,11 +6,10 @@ import {
   Pressable,
   ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
-import styles from './styles';
-import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import styles from './styles';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -40,7 +40,7 @@ const HomeScreen = () => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
-  var options = {
+  const options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,

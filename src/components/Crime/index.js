@@ -5,8 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const Crime = props => {
-  const {crime} = props;
+const Crime = ({crime}) => {
   const navigation = useNavigation();
 
   const [isSaved, setIsSaved] = useState(false);
@@ -37,13 +36,8 @@ const Crime = props => {
   }
 
   function toggleLike() {
-    if (isSaved) {
-      handleDeleteObject();
-      console.log('Removed From Saved');
-    } else {
-      handleAddNewObject();
-      console.log('Saved');
-    }
+    isSaved ? handleDeleteObject() : handleAddNewObject();
+    console.log(isSaved ? 'Removed From Saved' : 'Saved');
   }
 
   const handleAddNewObject = async () => {

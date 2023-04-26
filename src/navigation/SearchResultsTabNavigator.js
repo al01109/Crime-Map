@@ -6,8 +6,9 @@ import {
   Switch,
   Pressable,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import {HeaderBackButton} from '@react-navigation/elements';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useRoute, useNavigation} from '@react-navigation/native';
@@ -18,13 +19,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Tab = createMaterialTopTabNavigator();
 
-const SearchResultsTabNavigator = props => {
-  const route = useRoute();
+const SearchResultsTabNavigator = () => {
   const navigation = useNavigation();
-  const {longitude, latitude, date, name} = route.params;
+  const {longitude, latitude, date, name} = useRoute().params;
+  const [loading, setLoading] = useState(true);
   const [crimes, setCrimes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const categories = Array.from(new Set(crimes.map(crime => crime.category)));
+  const categories = useMemo(
+    () => Array.from(new Set(crimes.map(crime => crime.category))),
+    [crimes],
+  );
   const [selectedCategories, setSelectedCategories] = useState(categories);
   const filteredCrimes = crimes.filter(crime =>
     selectedCategories.includes(crime.category),
@@ -32,9 +36,9 @@ const SearchResultsTabNavigator = props => {
   const crimeCount = filteredCrimes.length;
   const totalCrimeCount = crimes.length;
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
+  const toggleModal = useCallback(() => {
+    setModalVisible(prevState => !prevState);
+  }, []);
 
   useEffect(() => {
     const fetchCrimes = async () => {
@@ -49,6 +53,7 @@ const SearchResultsTabNavigator = props => {
               new Set(result.map(crime => crime.category)),
             );
             setSelectedCategories(categories);
+            setLoading(false);
           });
       } catch (e) {
         console.log(e);
@@ -132,7 +137,21 @@ const SearchResultsTabNavigator = props => {
           </View>
         </View>
       </Modal>
-
+      {loading && (
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2,
+          }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
       <Tab.Navigator>
         <Tab.Screen name={'Map'}>
           {() => (
