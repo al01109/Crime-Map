@@ -7,7 +7,7 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import {Button} from '@aws-amplify/ui-react-native/dist/primitives';
 import CrimeComment from '../../components/Comment';
-import {formatName} from '../../utils/stringFormatter';
+import {formatName, formatDate} from '../../utils/stringFormatter';
 
 const CommentsScreen = () => {
   const {
@@ -69,12 +69,14 @@ const CommentsScreen = () => {
       <View style={styles.crimeContainer}>
         <Text style={styles.category}>{formatName(crime.category)}</Text>
         <Text style={styles.location}>{crime.location.street.name}</Text>
-        <Text style={styles.date}>{crime.month}</Text>
+        <Text style={styles.date}>{formatDate(crime.month)}</Text>
       </View>
       {crime.outcome_status?.category && (
         <View style={styles.outcomeContainer}>
           <Text style={styles.category}>{crime.outcome_status.category}</Text>
-          <Text style={styles.date}>{crime.outcome_status.date}</Text>
+          <Text style={styles.date}>
+            {formatDate(crime.outcome_status.date)}
+          </Text>
         </View>
       )}
       <Text style={styles.comment}>Comments</Text>

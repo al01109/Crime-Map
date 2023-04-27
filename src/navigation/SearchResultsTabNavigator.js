@@ -16,7 +16,7 @@ import CrimesScreen from '../screens/Crimes';
 import CrimesMap from '../screens/CrimesMap';
 import CrimeStatistics from '../screens/CrimeStats';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {formatName} from '../utils/stringFormatter';
+import {formatName, formatDate} from '../utils/stringFormatter';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -62,7 +62,7 @@ const SearchResultsTabNavigator = () => {
     };
     fetchCrimes();
     navigation.setOptions({
-      title: name + ' ' + date,
+      title: name + ', ' + formatDate(date),
       headerLeft: () => (
         <HeaderBackButton
           onPress={() =>

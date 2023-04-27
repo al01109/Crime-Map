@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: -8,
   },
+  share: {
+    position: 'absolute',
+    top: 10,
+    right: 11,
+  },
 });
 
 export default styles;
