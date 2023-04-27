@@ -1,67 +1,12 @@
 import {Text, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './style';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {formatName} from '../../utils/stringFormatter';
 
-const Crime = ({crime}) => {
+const Crime = ({crime, savedCrimes, onPress}) => {
   const navigation = useNavigation();
-
-  const [isSaved, setIsSaved] = useState(false);
-  const [favoriteObjects, setFavoriteObjects] = useState([]);
-
-  useEffect(() => {
-    const getFavoriteObjectsFromAsyncStorage = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('crimes');
-        if (jsonValue != null) {
-          const parsedArray = JSON.parse(jsonValue);
-          setFavoriteObjects(parsedArray);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getFavoriteObjectsFromAsyncStorage();
-  }, []);
-
-  useEffect(() => {
-    checkFavourites();
-  }, [favoriteObjects]);
-
-  function checkFavourites() {
-    const isCrimePresent = favoriteObjects.some(item => item.id === crime.id);
-    setIsSaved(isCrimePresent);
-  }
-
-  function toggleLike() {
-    isSaved ? handleDeleteObject() : handleAddNewObject();
-    console.log(isSaved ? 'Removed From Saved' : 'Saved');
-  }
-
-  const handleAddNewObject = async () => {
-    const updatedArray = [...favoriteObjects, crime];
-    await saveFavoriteObjectsToAsyncStorage(updatedArray);
-    setIsSaved(true);
-  };
-
-  const handleDeleteObject = async () => {
-    const updatedArray = favoriteObjects.filter(obj => obj.id !== crime.id);
-    await saveFavoriteObjectsToAsyncStorage(updatedArray);
-    setIsSaved(false);
-  };
-
-  const saveFavoriteObjectsToAsyncStorage = async updatedArray => {
-    try {
-      const jsonValue = JSON.stringify(updatedArray);
-      await AsyncStorage.setItem('crimes', jsonValue);
-      setFavoriteObjects(updatedArray);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <Pressable
@@ -80,20 +25,19 @@ const Crime = ({crime}) => {
       <Text style={styles.category}>{formatName(crime.category)}</Text>
       <Text style={styles.location}>{crime.location.street.name}</Text>
       <Text style={styles.location}>{crime.month}</Text>
-      {!isSaved && (
-        <Pressable onPress={() => toggleLike()}>
-          <AntDesign
-            style={styles.like}
-            name="hearto"
-            size={18}
-            color={'red'}></AntDesign>
-        </Pressable>
-      )}
-      {isSaved && (
-        <Pressable onPress={() => toggleLike()}>
+      {savedCrimes.some(c => c.id === crime.id) ? (
+        <Pressable onPress={() => onPress(crime)}>
           <AntDesign
             style={styles.like}
             name="heart"
+            size={18}
+            color={'red'}></AntDesign>
+        </Pressable>
+      ) : (
+        <Pressable onPress={() => onPress(crime)}>
+          <AntDesign
+            style={styles.like}
+            name="hearto"
             size={18}
             color={'red'}></AntDesign>
         </Pressable>

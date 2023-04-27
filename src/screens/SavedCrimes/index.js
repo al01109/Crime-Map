@@ -1,22 +1,15 @@
 import {View} from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CrimesScreen from '../Crimes';
-import {useFocusEffect} from '@react-navigation/native';
 
 const SavedCrimesScreen = () => {
-  const key = 'crimes';
+  const key = 'saved-crimes';
   const [savedCrimes, setSavedCrimes] = useState([]);
-
-  const refetchCrimes = useCallback(() => {
-    fetchCrimes();
-  }, []);
-
-  useFocusEffect(refetchCrimes);
 
   useEffect(() => {
     fetchCrimes();
-  }, []);
+  });
 
   async function fetchCrimes() {
     try {
