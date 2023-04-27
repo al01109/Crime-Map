@@ -1,5 +1,5 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, Text, TextInput, FlatList} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
 import styles from './styles';
 import {useRoute} from '@react-navigation/native';
 import {API} from 'aws-amplify';
@@ -12,6 +12,7 @@ import {formatName} from '../../utils/stringFormatter';
 const CommentsScreen = props => {
   const route = useRoute();
   const {crime} = route.params;
+  const commentInputRef = useRef(null);
   const [comments, setComments] = useState([]);
   const [formState, setFormState] = useState({
     crime_id: crime.id,
@@ -49,15 +50,16 @@ const CommentsScreen = props => {
 
   async function addComment() {
     try {
+      commentInputRef.current.blur();
       const comment = {...formState};
       setComments([...comments, comment]);
       setInput('description', '');
-      const newComment = await API.graphql({
+      await API.graphql({
         query: mutations.createComment,
         variables: {input: comment},
       });
     } catch (err) {
-      console.log('error creating todo:', err);
+      console.log('error creating comment:', err);
     }
   }
 
@@ -77,6 +79,7 @@ const CommentsScreen = props => {
       <Text style={styles.comment}>Comments</Text>
       <View style={styles.commentInputContainer}>
         <TextInput
+          ref={commentInputRef}
           style={styles.commentInput}
           placeholder="Add Comment..."
           onChangeText={val => setInput('description', val)}

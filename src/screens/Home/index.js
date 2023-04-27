@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Pressable,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
@@ -14,6 +15,8 @@ import styles from './styles';
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const {height, width} = Dimensions.get('window');
+  const isLargeScreen = height >= 800; // Example breakpoint for large screens#
 
   function loadUserLocation() {
     setLoading(true);
@@ -47,9 +50,13 @@ const HomeScreen = () => {
   };
 
   return (
-    <View>
+    <View style={isLargeScreen && styles.largeScreen}>
       <Pressable
-        style={styles.searchButton}
+        style={
+          isLargeScreen
+            ? styles.largeScreenSearchButton
+            : styles.smallScreenSearchButton
+        }
         onPress={() => navigation.navigate('Location Search')}>
         <Fontisto name="search" size={25} color={'#f15454'} />
         <Text style={styles.searchButtonText}>

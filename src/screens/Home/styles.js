@@ -1,6 +1,14 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
+  largeScreen: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'flex-end',
+    marginBottom: 40,
+    backgroundColor: '#E0E0E0',
+  },
+  smallScreen: {},
   image: {
     width: '100%',
     height: 615,
@@ -29,7 +37,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  searchButton: {
+  largeScreenSearchButton: {
+    backgroundColor: '#fff',
+    height: 55,
+    width: Dimensions.get('screen').width - 40,
+    borderRadius: 28,
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 40,
+    zIndex: 3,
+  },
+  smallScreenSearchButton: {
     backgroundColor: '#fff',
     height: 55,
     width: Dimensions.get('screen').width - 40,
