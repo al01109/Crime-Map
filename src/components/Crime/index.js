@@ -7,7 +7,6 @@ import {formatName} from '../../utils/stringFormatter';
 
 const Crime = ({crime, savedCrimes, onPress}) => {
   const navigation = useNavigation();
-
   return (
     <Pressable
       style={styles.container}
@@ -25,7 +24,7 @@ const Crime = ({crime, savedCrimes, onPress}) => {
       <Text style={styles.category}>{formatName(crime.category)}</Text>
       <Text style={styles.location}>{crime.location.street.name}</Text>
       <Text style={styles.location}>{crime.month}</Text>
-      {savedCrimes.some(c => c.id === crime.id) ? (
+      {savedCrimes.some(c => c === crime.id) ? (
         <Pressable onPress={() => onPress(crime)}>
           <AntDesign
             style={styles.like}

@@ -13,10 +13,9 @@ const CrimesScreen = ({crimes}) => {
 
   async function fetchCrimes() {
     try {
-      const stringifiedData = await AsyncStorage.getItem(key);
-      if (stringifiedData !== null) {
-        const data = JSON.parse(stringifiedData);
-        setSavedCrimes(data);
+      const data = await AsyncStorage.getItem(key);
+      if (data !== null) {
+        setSavedCrimes(JSON.parse(data));
       } else {
         console.log('No data found for the given key');
       }
@@ -43,8 +42,7 @@ const CrimesScreen = ({crimes}) => {
 
   const saveFavoriteObjectsToAsyncStorage = async updatedArray => {
     try {
-      const jsonValue = JSON.stringify(updatedArray);
-      await AsyncStorage.setItem(key, jsonValue);
+      await AsyncStorage.setItem(key, JSON.stringify(updatedArray));
       setSavedCrimes(updatedArray);
     } catch (error) {
       console.log(error);
@@ -56,7 +54,11 @@ const CrimesScreen = ({crimes}) => {
       <FlatList
         data={crimes}
         renderItem={({item}) => (
-          <Crime crime={item} savedCrimes={savedCrimes} onPress={toggleSaved} />
+          <Crime
+            crime={item}
+            savedCrimes={savedCrimes.map(crime => crime.id)}
+            onPress={toggleSaved}
+          />
         )}
       />
     </View>
