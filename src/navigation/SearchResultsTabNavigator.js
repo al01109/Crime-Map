@@ -16,6 +16,7 @@ import CrimesScreen from '../screens/Crimes';
 import CrimesMap from '../screens/CrimesMap';
 import CrimeStatistics from '../screens/CrimeStats';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {formatName} from '../utils/stringFormatter';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -110,7 +111,7 @@ const SearchResultsTabNavigator = () => {
 
           {categories.map(category => (
             <View key={category} style={styles.container}>
-              <Text style={styles.category}>{category}</Text>
+              <Text style={styles.category}>{formatName(category)}</Text>
               <View style={styles.switch}>
                 <Switch
                   value={selectedCategories.includes(category)}

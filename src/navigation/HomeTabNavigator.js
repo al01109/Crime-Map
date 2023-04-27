@@ -4,6 +4,7 @@ import QuickLinksScreen from '../screens/QuickLinks';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ExploreNavigator from './ExploreNavigator';
 import AccountNavigator from './AccountNavigator';
 import SavedCrimesScreen from '../screens/SavedCrimes';
@@ -17,8 +18,8 @@ const HomeTabNavigator = () => {
         name={'Explore'}
         component={ExploreNavigator}
         options={{
-          tabBarIcon: ({color}) => (
-            <Fontisto name="search" size={25} color={color} />
+          tabBarIcon: ({color, size}) => (
+            <Fontisto name="search" color={color} size={size} />
           ),
           headerShown: false,
         }}
@@ -28,7 +29,7 @@ const HomeTabNavigator = () => {
         component={SavedCrimesScreen}
         options={{
           tabBarIcon: ({color, size}) => (
-            <Fontisto name="comments" color={color} size={size} />
+            <FontAwesome name="save" color={color} size={size} />
           ),
         }}
       />

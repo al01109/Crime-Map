@@ -9,12 +9,7 @@ const Router = props => {
   return (
     <Stack.Navigator>
       <Stack.Screen name={'Profile'} component={ProfileScreen} options={{}} />
-
-      <Stack.Screen
-        name={'Privacy Policy'}
-        component={PrivacyPolicy}
-        options={{}}
-      />
+      <Stack.Screen name={'Privacy Policy'} component={PrivacyPolicy} />
     </Stack.Navigator>
   );
 };

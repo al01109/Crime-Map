@@ -1,8 +1,9 @@
-import {View, FlatList, useWindowDimensions, Text} from 'react-native';
+import {View, FlatList, useWindowDimensions} from 'react-native';
 import React, {useEffect, useRef, useState, useCallback, useMemo} from 'react';
 import {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
 import CrimeCarousellItem from '../../components/CrimeCarouselItem';
+import {formatName} from '../../utils/stringFormatter';
 
 const CrimesMap = ({crimes, longitude, latitude}) => {
   const delta = 0.1;
@@ -81,7 +82,7 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
               latitude: parseFloat(location.latitude),
               longitude: parseFloat(location.longitude),
             }}
-            title={category}
+            title={formatName(category)}
             description={location.street.name}
             pinColor={'navy'}></Marker>
         ))}
@@ -98,6 +99,15 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
           decelerationRate={'fast'}
           viewabilityConfig={viewConfigRef.current}
           onViewableItemsChanged={onViewChanged.current}
+          onScrollToIndexFailed={info => {
+            const wait = new Promise(resolve => setTimeout(resolve, 500));
+            wait.then(() => {
+              flatlist.current?.scrollToIndex({
+                index: info.index,
+                animated: true,
+              });
+            });
+          }}
         />
       </View>
     </View>

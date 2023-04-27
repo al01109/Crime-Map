@@ -4,6 +4,7 @@ import {View, Text, Dimensions, ScrollView} from 'react-native';
 import {PieChart} from 'react-native-chart-kit';
 import styles from './styles';
 import chartConfig from './ChartConfig';
+import {formatName} from '../../utils/stringFormatter';
 
 const CrimeStatistics = ({crimes}) => {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
@@ -15,13 +16,6 @@ const CrimeStatistics = ({crimes}) => {
     population: crimes.filter(item => item.category === category).length,
     color: randomColor(),
   }));
-
-  function formatName(name) {
-    return name
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
 
   const filteredData = data.filter(item => item.population > 0);
   return (
