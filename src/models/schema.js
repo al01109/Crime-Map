@@ -10,8 +10,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "persistent_id": {
-                    "name": "persistent_id",
+                "crime_id": {
+                    "name": "crime_id",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -70,5 +70,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "0ef584f13407ba6a24123441339bd66e"
+    "version": "9fb6c13090065587771783d800692ae5"
 };

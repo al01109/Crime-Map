@@ -8,7 +8,7 @@ export const createComment = /* GraphQL */ `
   ) {
     createComment(input: $input, condition: $condition) {
       id
-      persistent_id
+      crime_id
       description
       createdAt
       updatedAt
@@ -25,7 +25,7 @@ export const updateComment = /* GraphQL */ `
   ) {
     updateComment(input: $input, condition: $condition) {
       id
-      persistent_id
+      crime_id
       description
       createdAt
       updatedAt
@@ -42,7 +42,7 @@ export const deleteComment = /* GraphQL */ `
   ) {
     deleteComment(input: $input, condition: $condition) {
       id
-      persistent_id
+      crime_id
       description
       createdAt
       updatedAt

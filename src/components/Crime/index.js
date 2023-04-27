@@ -4,6 +4,7 @@ import styles from './style';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {formatName} from '../../utils/stringFormatter';
 
 const Crime = ({crime}) => {
   const navigation = useNavigation();
@@ -76,7 +77,7 @@ const Crime = ({crime}) => {
           },
         })
       }>
-      <Text style={styles.category}>{crime.category}</Text>
+      <Text style={styles.category}>{formatName(crime.category)}</Text>
       <Text style={styles.location}>{crime.location.street.name}</Text>
       <Text style={styles.location}>{crime.month}</Text>
       {!isSaved && (

@@ -1,11 +1,4 @@
 export type AmplifyDependentResourcesAttributes = {
-  "analytics": {
-    "crimemap": {
-      "Id": "string",
-      "Region": "string",
-      "appName": "string"
-    }
-  },
   "api": {
     "crimemap": {
       "GraphQLAPIEndpointOutput": "string",

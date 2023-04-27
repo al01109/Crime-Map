@@ -5,7 +5,7 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
-      persistent_id
+      crime_id
       description
       createdAt
       updatedAt
@@ -24,7 +24,7 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        persistent_id
+        crime_id
         description
         createdAt
         updatedAt
@@ -52,7 +52,7 @@ export const syncComments = /* GraphQL */ `
     ) {
       items {
         id
-        persistent_id
+        crime_id
         description
         createdAt
         updatedAt

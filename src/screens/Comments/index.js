@@ -1,4 +1,4 @@
-import {View, Text, TextInput, FlatList} from 'react-native';
+import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {useRoute} from '@react-navigation/native';
@@ -7,20 +7,21 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import {Button} from '@aws-amplify/ui-react-native/dist/primitives';
 import CrimeComment from '../../components/Comment';
+import {formatName} from '../../utils/stringFormatter';
 
 const CommentsScreen = props => {
   const route = useRoute();
   const {crime} = route.params;
   const [comments, setComments] = useState([]);
   const [formState, setFormState] = useState({
-    persistent_id: crime.persistent_id,
+    crime_id: crime.id,
     description: '',
   });
 
   const variables = {
     filter: {
-      persistent_id: {
-        contains: crime.persistent_id,
+      crime_id: {
+        contains: crime.id,
       },
     },
   };
@@ -61,11 +62,18 @@ const CommentsScreen = props => {
   }
 
   return (
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.category}>{crime.category}</Text>
+    <View style={styles.container}>
+      <View style={styles.crimeContainer}>
+        <Text style={styles.category}>{formatName(crime.category)}</Text>
         <Text style={styles.location}>{crime.location.street.name}</Text>
+        <Text style={styles.date}>{crime.month}</Text>
       </View>
+      {crime.outcome_status?.category && (
+        <View style={styles.outcomeContainer}>
+          <Text style={styles.category}>{crime.outcome_status.category}</Text>
+          <Text style={styles.date}>{crime.outcome_status.date}</Text>
+        </View>
+      )}
       <Text style={styles.comment}>Comments</Text>
       <View style={styles.commentInputContainer}>
         <TextInput
@@ -79,7 +87,6 @@ const CommentsScreen = props => {
         Add Comment
       </Button>
       <FlatList
-        style={styles.commentList}
         data={comments}
         renderItem={({item}) => <CrimeComment comment={item} />}
       />
