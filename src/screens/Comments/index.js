@@ -1,4 +1,4 @@
-import {View, Text, TextInput, FlatList} from 'react-native';
+import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import styles from './styles';
 import {useRoute} from '@react-navigation/native';
@@ -65,7 +65,7 @@ const CommentsScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.crimeContainer}>
         <Text style={styles.category}>{formatName(crime.category)}</Text>
         <Text style={styles.location}>{crime.location.street.name}</Text>
@@ -93,10 +93,11 @@ const CommentsScreen = () => {
         Add Comment
       </Button>
       <FlatList
+        style={{marginBottom: 30}}
         data={comments}
         renderItem={({item}) => <CrimeComment comment={item} />}
       />
-    </View>
+    </ScrollView>
   );
 };
 

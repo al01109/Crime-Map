@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingBottom: 10,
   },
-  like: {
+  save: {
     position: 'absolute',
     bottom: 10,
     right: -8,

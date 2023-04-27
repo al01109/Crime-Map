@@ -2,7 +2,7 @@ import {Text, Pressable} from 'react-native';
 import React from 'react';
 import styles from './style';
 import {useNavigation} from '@react-navigation/native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {formatName, formatDate} from '../../utils/stringFormatter';
 import Share from 'react-native-share';
@@ -50,19 +50,21 @@ const Crime = ({crime, savedCrimes, onPress}) => {
       </Pressable>
       {savedCrimes.some(c => c === crime.id) ? (
         <Pressable onPress={() => onPress(crime)}>
-          <AntDesign
-            style={styles.like}
-            name="heart"
-            size={18}
-            color={'red'}></AntDesign>
+          <FontAwesome
+            name="save"
+            color={'#2196f3'}
+            size={20}
+            style={styles.save}
+          />
         </Pressable>
       ) : (
         <Pressable onPress={() => onPress(crime)}>
-          <AntDesign
-            style={styles.like}
-            name="hearto"
-            size={18}
-            color={'red'}></AntDesign>
+          <FontAwesome
+            name="save"
+            color={'#808080'}
+            size={20}
+            style={styles.save}
+          />
         </Pressable>
       )}
     </Pressable>
