@@ -15,7 +15,7 @@ import styles from './styles';
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const {height, width} = Dimensions.get('window');
+  const {height} = Dimensions.get('window');
   const isLargeScreen = height >= 800; // Example breakpoint for large screens#
 
   function loadUserLocation() {

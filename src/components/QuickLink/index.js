@@ -2,8 +2,7 @@ import {Text, Image, Linking, Pressable} from 'react-native';
 import React from 'react';
 import styles from './styles';
 
-const QuickLink = props => {
-  const link = props.link;
+const QuickLink = ({link}) => {
   return (
     <Pressable
       style={styles.container}

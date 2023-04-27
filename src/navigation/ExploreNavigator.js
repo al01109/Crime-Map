@@ -7,7 +7,7 @@ import DateSelect from '../screens/DateSelect';
 
 const Stack = createStackNavigator();
 
-const Router = props => {
+const Router = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen

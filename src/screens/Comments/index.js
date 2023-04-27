@@ -9,9 +9,10 @@ import {Button} from '@aws-amplify/ui-react-native/dist/primitives';
 import CrimeComment from '../../components/Comment';
 import {formatName} from '../../utils/stringFormatter';
 
-const CommentsScreen = props => {
-  const route = useRoute();
-  const {crime} = route.params;
+const CommentsScreen = () => {
+  const {
+    params: {crime},
+  } = useRoute();
   const commentInputRef = useRef(null);
   const [comments, setComments] = useState([]);
   const [formState, setFormState] = useState({

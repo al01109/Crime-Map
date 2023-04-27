@@ -5,7 +5,7 @@ import PrivacyPolicy from '../screens/PrivacyPolicy';
 
 const Stack = createStackNavigator();
 
-const Router = props => {
+const Router = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name={'Profile'} component={ProfileScreen} options={{}} />
