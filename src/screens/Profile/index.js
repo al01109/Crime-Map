@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {View, Pressable, Text, Button, Alert, StyleSheet} from 'react-native';
+import {View, Pressable, Text, Button, Alert} from 'react-native';
 import {Auth} from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 
-const ProfileScreen = props => {
-  const [user, setUser] = useState(null);
+const ProfileScreen = () => {
   const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isPhoneNumberVerified, setIsPhoneNumberVerified] = useState(false);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then(userData => {
         setUser(userData);
+        setIsEmailVerified(userData.attributes.email_verified);
+        setIsPhoneNumberVerified(userData.attributes.phone_number_verified);
       })
       .catch(error => console.log(error));
   }, []);
@@ -38,15 +42,15 @@ const ProfileScreen = props => {
     );
   };
 
-  async function signOut() {
+  const signOut = async () => {
     try {
       await Auth.signOut();
     } catch (error) {
       console.log('error signing out: ', error);
     }
-  }
+  };
 
-  async function deleteAccount() {
+  const deleteAccount = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
       await Auth.deleteUser(user);
@@ -54,7 +58,7 @@ const ProfileScreen = props => {
     } catch (error) {
       console.log('Error deleting account:', error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -63,6 +67,12 @@ const ProfileScreen = props => {
         <Text style={styles.data}>{user?.username}</Text>
         <Text style={styles.label}>Email</Text>
         <Text style={styles.data}>{user?.attributes?.email}</Text>
+        <Text style={styles.label}>Email Verified?</Text>
+        <Text style={styles.data}>{isEmailVerified ? 'Yes' : 'No'}</Text>
+        <Text style={styles.label}>Phone Number</Text>
+        <Text style={styles.data}>{user?.attributes?.phone_number}</Text>
+        <Text style={styles.label}>Phone Number Verified?</Text>
+        <Text style={styles.data}>{isPhoneNumberVerified ? 'Yes' : 'No'}</Text>
         <Pressable onPress={() => navigation.navigate('Privacy Policy')}>
           <Text style={styles.privacyPolicy}>Privacy Policy</Text>
         </Pressable>
@@ -72,7 +82,6 @@ const ProfileScreen = props => {
           </Text>
         </Pressable>
       </View>
-
       <View style={styles.signOut}>
         <Button onPress={signOut} title={'Sign Out'} />
       </View>
