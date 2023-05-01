@@ -1,6 +1,5 @@
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
-import styles from './styles';
+import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
@@ -8,6 +7,7 @@ import * as mutations from '../../graphql/mutations';
 import {Button} from '@aws-amplify/ui-react-native/dist/primitives';
 import CrimeComment from '../../components/Comment';
 import {formatName, formatDate} from '../../utils/stringFormatter';
+import styles from './styles';
 
 const CommentsScreen = () => {
   const {
@@ -65,7 +65,7 @@ const CommentsScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.crimeContainer}>
         <Text style={styles.category}>{formatName(crime.category)}</Text>
         <Text style={styles.location}>{crime.location.street.name}</Text>
@@ -93,6 +93,7 @@ const CommentsScreen = () => {
         Add Comment
       </Button>
       <FlatList
+        scrollEnabled={false}
         style={{marginBottom: 30}}
         data={comments}
         renderItem={({item}) => <CrimeComment comment={item} />}

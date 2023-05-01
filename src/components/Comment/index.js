@@ -5,7 +5,7 @@ import styles from './style';
 const CrimeComment = ({comment}) => {
   return (
     <View key={comment.id} style={styles.commentContainer}>
-      <Text>{comment.description}</Text>
+      <Text style={styles.description}>{comment.description}</Text>
     </View>
   );
 };
