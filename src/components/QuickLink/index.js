@@ -1,5 +1,5 @@
-import {Text, Image, Linking, Pressable} from 'react-native';
 import React from 'react';
+import {Text, Image, Linking, Pressable} from 'react-native';
 import styles from './styles';
 
 const QuickLink = ({link}) => {

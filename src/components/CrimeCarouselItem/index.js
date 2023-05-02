@@ -1,8 +1,8 @@
-import {View, Text, useWindowDimensions, Pressable} from 'react-native';
 import React from 'react';
-import styles from './style';
+import {Text, useWindowDimensions, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {formatName} from '../../utils/stringFormatter';
+import styles from './style';
 
 const CrimeCarousellItem = ({crime}) => {
   const navigation = useNavigation();

@@ -1,11 +1,11 @@
-import {Text, Pressable} from 'react-native';
 import React from 'react';
-import styles from './style';
+import {Text, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import {formatName, formatDate} from '../../utils/stringFormatter';
 import Share from 'react-native-share';
+import styles from './style';
+import {formatName, formatDate} from '../../utils/stringFormatter';
 
 const Crime = ({crime, savedCrimes, onPress}) => {
   const navigation = useNavigation();
