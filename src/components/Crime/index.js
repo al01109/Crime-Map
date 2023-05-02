@@ -17,8 +17,8 @@ const Crime = ({crime, savedCrimes, onPress}) => {
           crime.location.street.name
         } in ${formatDate(
           crime.month,
-        )}.\n If you have any information related to this crime, please contact the authorities.\n Download the CrimeMap Application at`,
-        url: 'https://example.com',
+        )}.\nIf you have any information related to this crime, please contact the authorities.\nDownload the CrimeMap Application at`,
+        url: 'https://play.google.com/store/apps',
         title: 'Crime Map',
         subject: 'Share Link', // Android only
       });
