@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   privacyPolicy: {
+    marginTop: 20,
     fontSize: 18,
     color: '#2196f3',
   },

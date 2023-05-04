@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import MonthYearPicker from 'react-native-month-year-picker';
 import styles from './styles';
 

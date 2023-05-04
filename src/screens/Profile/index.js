@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Pressable, Text, Button, Alert} from 'react-native';
+import {View, Pressable, Text, Button, Alert, ScrollView} from 'react-native';
 import {Auth} from 'aws-amplify';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
@@ -61,7 +61,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.userInfo}>
         <Text style={styles.label}>Username</Text>
         <Text style={styles.data}>{user?.username}</Text>
@@ -73,6 +73,14 @@ const ProfileScreen = () => {
         <Text style={styles.data}>{user?.attributes?.phone_number}</Text>
         <Text style={styles.label}>Phone Number Verified?</Text>
         <Text style={styles.data}>{isPhoneNumberVerified ? 'Yes' : 'No'}</Text>
+        <Button
+          title="Forgot/Change Password"
+          onPress={() =>
+            navigation.navigate('Reset Password', {
+              username: user?.username,
+              userEmail: user?.attributes?.email,
+            })
+          }></Button>
         <Pressable onPress={() => navigation.navigate('Privacy Policy')}>
           <Text style={styles.privacyPolicy}>Privacy Policy</Text>
         </Pressable>
@@ -85,7 +93,7 @@ const ProfileScreen = () => {
       <View style={styles.signOut}>
         <Button onPress={signOut} title={'Sign Out'} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
