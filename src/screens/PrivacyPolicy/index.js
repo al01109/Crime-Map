@@ -95,11 +95,11 @@ const PrivacyPolicy = () => {
         </Text>
         <Text style={styles.subHeading}>Contacting Us</Text>
         <Text style={styles.paragraph}>
-          All enquiries should be directed to: andrew.daniel.landon@gmail.com
+          All enquiries should be directed to: al01109@surrey.ac.uk
         </Text>
         <View>
           <Text style={styles.bulletPoint}>
-            • Under the Data Protection Act 1998, you can request a copy of the
+            • Under the Data Protection Act 2018, you can request a copy of the
             personal data we store about you. To obtain this information, please
             contact us using the email address provided above.
           </Text>
