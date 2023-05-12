@@ -4,7 +4,7 @@ import styles from './styles';
 
 const PrivacyPolicy = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} testID="privacy-policy">
       <View style={styles.contentContainer}>
         <Text style={styles.heading}>Privacy Policy</Text>
         <Text style={styles.paragraph}>

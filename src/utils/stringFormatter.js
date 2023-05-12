@@ -22,5 +22,10 @@ export function formatDate(dateString) {
     'December',
   ];
   const monthName = months[Number(month) - 1];
+
+  if (!monthName) {
+    return undefined;
+  }
+
   return `${monthName} ${year}`;
 }

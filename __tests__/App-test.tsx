@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import QuickLink from '../src/components/QuickLink';
 import CrimeComment from '../src/components/Comment';
 import CrimeCarousellItem from '../src/components/CrimeCarouselItem';
+import PrivacyPolicy from '../src/screens/PrivacyPolicy';
 
 describe('QuickLink component', () => {
   const mockLink = {
@@ -76,5 +77,56 @@ describe('CrimeCarousellItem', () => {
         },
       },
     });
+  });
+});
+
+describe('PrivacyPolicy', () => {
+  it('renders without crashing', () => {
+    const {getByTestId} = render(<PrivacyPolicy />);
+    expect(getByTestId('privacy-policy')).toBeDefined();
+  });
+
+  it('displays the privacy policy heading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('Privacy Policy')).toBeDefined();
+  });
+
+  it('displays the information we collect subheading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('What information do we collect?')).toBeDefined();
+  });
+
+  it('displays the protecting your data subheading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('Protecting Your Data')).toBeDefined();
+  });
+
+  it('displays the data usage subheading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('Data Usage')).toBeDefined();
+  });
+
+  it('displays the external links subheading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('External Links')).toBeDefined();
+  });
+
+  it('displays the contacting us subheading', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText('Contacting Us')).toBeDefined();
+  });
+
+  it('displays the email address for enquiries', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(getByText(/al01109@surrey.ac.uk/i)).toBeDefined();
+  });
+
+  it('displays the text related to Data Protection Act 2018', () => {
+    const {getByText} = render(<PrivacyPolicy />);
+    expect(
+      getByText(
+        /Under the Data Protection Act 2018, you can request a copy of the personal data we store about you. To obtain this information, please contact us using the email address provided above./i,
+      ),
+    ).toBeDefined();
   });
 });
