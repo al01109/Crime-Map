@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useMemo, useCallback} from 'react';
 import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {API} from 'aws-amplify';
@@ -20,23 +20,26 @@ const CommentsScreen = () => {
     description: '',
   });
 
-  const variables = {
-    filter: {
-      crime_id: {
-        contains: crime.id,
+  const variables = useMemo(
+    () => ({
+      filter: {
+        crime_id: {
+          contains: crime.id,
+        },
       },
-    },
-  };
+    }),
+    [crime.id],
+  );
 
-  function setInput(key, value) {
-    setFormState({...formState, [key]: value});
-  }
+  const setInput = useCallback((key, value) => {
+    setFormState(prevFormState => ({...prevFormState, [key]: value}));
+  }, []);
 
   useEffect(() => {
     fetchComments();
   }, []);
 
-  async function fetchComments() {
+  const fetchComments = useCallback(async () => {
     try {
       const commentsData = await API.graphql({
         query: queries.listComments,
@@ -45,24 +48,24 @@ const CommentsScreen = () => {
       const commentsList = commentsData.data.listComments.items;
       setComments(commentsList);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
-  }
+  }, [variables]);
 
-  async function addComment() {
+  const addComment = useCallback(async () => {
     try {
       commentInputRef.current.blur();
       const comment = {...formState};
-      setComments([...comments, comment]);
+      setComments(prevComments => [...prevComments, comment]);
       setInput('description', '');
       await API.graphql({
         query: mutations.createComment,
         variables: {input: comment},
       });
     } catch (err) {
-      console.log('error creating comment:', err);
+      console.error('error creating comment:', err);
     }
-  }
+  }, [formState, setInput]);
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>

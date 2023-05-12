@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CrimesScreen from '../Crimes';
@@ -25,11 +24,7 @@ const SavedCrimesScreen = () => {
     }
   }
 
-  return (
-    <View>
-      <CrimesScreen crimes={savedCrimes}></CrimesScreen>
-    </View>
-  );
+  return <CrimesScreen crimes={savedCrimes}></CrimesScreen>;
 };
 
 export default SavedCrimesScreen;

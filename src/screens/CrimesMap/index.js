@@ -6,16 +6,20 @@ import CrimeCarousellItem from '../../components/CrimeCarouselItem';
 import {formatName} from '../../utils/stringFormatter';
 import styles from './styles';
 
+const delta = 0.1;
+const viewConfig = {
+  itemVisiblePercentThreshold: 70,
+  minimumViewTime: 250,
+};
+
 const CrimesMap = ({crimes, longitude, latitude}) => {
-  const delta = 0.1;
   const [selectedCrimeId, setSelectedCrimeId] = useState(null);
   const width = useWindowDimensions().width;
   const flatlistRef = useRef();
   const mapRef = useRef();
-  const viewConfigRef = useRef({
-    itemVisiblePercentThreshold: 70,
-    minimumViewTime: 250,
-  });
+  const viewConfigRef = useRef(viewConfig);
+
+  const handlePressMarker = useCallback(id => setSelectedCrimeId(id), []);
 
   const onViewChanged = useCallback(({viewableItems}) => {
     if (viewableItems.length > 0) {
@@ -31,26 +35,30 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
     return crimes.findIndex(crime => crime.id === selectedCrimeId);
   }, [selectedCrimeId, crimes]);
 
+  const initialRegion = useMemo(
+    () => ({
+      latitude,
+      longitude,
+      latitudeDelta: delta,
+      longitudeDelta: delta,
+    }),
+    [latitude, longitude],
+  );
+
   useEffect(() => {
-    if (!flatlistRef.current) {
-      return;
-    }
     if (selectedCrimeIndex !== null) {
-      flatlistRef.current.scrollToIndex({index: selectedCrimeIndex});
+      flatlistRef.current?.scrollToIndex({index: selectedCrimeIndex});
     }
   }, [selectedCrimeIndex]);
 
   useEffect(() => {
-    if (!mapRef.current) {
-      return;
-    }
     if (selectedCrimeIndex !== null) {
       const selectedCrime = crimes[selectedCrimeIndex];
       const region = {
         latitude: parseFloat(selectedCrime.location.latitude),
         longitude: parseFloat(selectedCrime.location.longitude),
       };
-      mapRef.current.animateToRegion(region);
+      mapRef.current?.animateToRegion(region);
     }
   }, [selectedCrimeIndex, crimes]);
 
@@ -67,25 +75,21 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
         minPoints={2}
         extent={512}
         nodeSize={16}
-        initialRegion={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: delta,
-          longitudeDelta: delta,
-        }}>
+        initialRegion={initialRegion}>
         {crimes.map(({id, location, category}) => (
           <Marker
             key={id}
             tracksViewChanges={false}
             selected={id === selectedCrimeId}
-            onPress={() => setSelectedCrimeId(id)}
+            onPress={() => handlePressMarker(id)}
             coordinate={{
               latitude: parseFloat(location.latitude),
               longitude: parseFloat(location.longitude),
             }}
             title={formatName(category)}
             description={location.street.name}
-            pinColor={'navy'}></Marker>
+            pinColor={'navy'}
+          />
         ))}
       </MapView>
       <View style={styles.flatList}>
@@ -103,10 +107,12 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
           onScrollToIndexFailed={info => {
             const wait = new Promise(resolve => setTimeout(resolve, 500));
             wait.then(() => {
-              flatlistRef.current?.scrollToIndex({
-                index: info.index,
-                animated: true,
-              });
+              if (flatlistRef.current !== null) {
+                flatlistRef.current.scrollToIndex({
+                  index: info.index,
+                  animated: true,
+                });
+              }
             });
           }}
         />

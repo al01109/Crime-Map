@@ -1,5 +1,5 @@
 import {View, FlatList} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Crime from '../../components/Crime';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,30 +24,25 @@ const CrimesScreen = ({crimes}) => {
     }
   }
 
-  function toggleSaved(crime) {
-    savedCrimes.some(c => c.id === crime.id)
-      ? handleDeleteObject(crime)
-      : handleAddNewObject(crime);
-  }
-
-  const handleAddNewObject = async crime => {
-    const updatedArray = [...savedCrimes, crime];
-    await saveFavoriteObjectsToAsyncStorage(updatedArray);
-  };
-
-  const handleDeleteObject = async crime => {
-    const updatedArray = savedCrimes.filter(obj => obj.id !== crime.id);
-    await saveFavoriteObjectsToAsyncStorage(updatedArray);
-  };
-
-  const saveFavoriteObjectsToAsyncStorage = async updatedArray => {
-    try {
-      await AsyncStorage.setItem(key, JSON.stringify(updatedArray));
-      setSavedCrimes(updatedArray);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const toggleSaved = useCallback(
+    async crime => {
+      let updatedArray;
+      if (savedCrimes.some(c => c.id === crime.id)) {
+        // delete
+        updatedArray = savedCrimes.filter(obj => obj.id !== crime.id);
+      } else {
+        // add
+        updatedArray = [...savedCrimes, crime];
+      }
+      try {
+        await AsyncStorage.setItem(key, JSON.stringify(updatedArray));
+        setSavedCrimes(updatedArray);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [savedCrimes],
+  );
 
   return (
     <View>

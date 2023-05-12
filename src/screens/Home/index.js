@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,38 +16,46 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const {height} = Dimensions.get('window');
-  const isLargeScreen = height >= 800; // Example breakpoint for large screens#
+  const isLargeScreen = height >= 800; // Breakpoint for large screens
 
-  function loadUserLocation() {
+  const success = useCallback(
+    position => {
+      const coordinates = position.coords;
+      setLoading(false);
+      navigation.navigate('Home', {
+        screen: 'Explore',
+        params: {
+          screen: 'DateSelect',
+          params: {
+            longitude: coordinates?.longitude,
+            latitude: coordinates?.latitude,
+            name: 'Your Location',
+          },
+        },
+      });
+    },
+    [navigation],
+  );
+
+  const error = useCallback(err => {
+    setLoading(false);
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }, []);
+
+  const loadUserLocation = useCallback(() => {
     setLoading(true);
     Geolocation.getCurrentPosition(success, error, options);
-  }
-
-  function success(position) {
-    const coordinates = position.coords;
-    setLoading(false);
-    navigation.navigate('Home', {
-      screen: 'Explore',
-      params: {
-        screen: 'DateSelect',
-        params: {
-          longitude: coordinates?.longitude,
-          latitude: coordinates?.latitude,
-          name: 'Your Location',
-        },
-      },
-    });
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
+  }, [success, error]);
 
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
+
+  useEffect(() => {
+    return () => Geolocation.stopObserving();
+  }, []);
 
   return (
     <View style={isLargeScreen && styles.largeScreen}>
@@ -73,7 +81,7 @@ const HomeScreen = () => {
         source={require('../../../assets/images/police.jpg')}
         style={styles.image}>
         <Text style={styles.title}>The Crime Map</Text>
-        <Pressable style={styles.button} onPress={() => loadUserLocation()}>
+        <Pressable style={styles.button} onPress={loadUserLocation}>
           <Text style={styles.buttonText}>Explore Nearby Crimes</Text>
         </Pressable>
       </ImageBackground>
