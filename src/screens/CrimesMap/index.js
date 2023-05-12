@@ -4,6 +4,7 @@ import {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
 import CrimeCarousellItem from '../../components/CrimeCarouselItem';
 import {formatName} from '../../utils/stringFormatter';
+import styles from './styles';
 
 const CrimesMap = ({crimes, longitude, latitude}) => {
   const delta = 0.1;
@@ -54,10 +55,10 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
   }, [selectedCrimeIndex, crimes]);
 
   return (
-    <View style={{width: '100%', height: '100%'}}>
+    <View style={styles.container}>
       <MapView
         ref={mapRef}
-        style={{width: '100%', height: '100%'}}
+        style={styles.container}
         provider={PROVIDER_GOOGLE}
         clusterColor={'navy'}
         radius={width * 0.06}
@@ -87,7 +88,7 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
             pinColor={'navy'}></Marker>
         ))}
       </MapView>
-      <View style={{position: 'absolute', bottom: 10}}>
+      <View style={styles.flatList}>
         <FlatList
           ref={flatlistRef}
           data={crimes}
@@ -102,7 +103,7 @@ const CrimesMap = ({crimes, longitude, latitude}) => {
           onScrollToIndexFailed={info => {
             const wait = new Promise(resolve => setTimeout(resolve, 500));
             wait.then(() => {
-              flatlist.current?.scrollToIndex({
+              flatlistRef.current?.scrollToIndex({
                 index: info.index,
                 animated: true,
               });
