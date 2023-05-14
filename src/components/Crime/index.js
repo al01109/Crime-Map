@@ -24,7 +24,7 @@ const Crime = ({crime, savedCrimes, onPress}) => {
       });
       console.log(result);
     } catch (error) {
-      console.error(error.message);
+      console.log(error.message);
     }
   };
 
