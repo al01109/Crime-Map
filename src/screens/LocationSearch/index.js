@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import styles from './styles';
+import {GOOGLE_API_KEY} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import AutocompleteSuggestionRow from './AutocompleteSuggestionRow';
@@ -37,7 +38,7 @@ const LocationSearchScreen = () => {
         }}
         fetchDetails
         query={{
-          key: 'AIzaSyA6sLng0qF7nLXnLu4AfTQY1RMRhry7_s4',
+          key: GOOGLE_API_KEY,
           language: 'en',
           components: 'country:uk',
         }}
