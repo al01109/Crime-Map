@@ -8,6 +8,11 @@
 module.exports = {
   transformer: {
     babelTransformerPath: require.resolve('react-native-dotenv'),
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
   },
 };
-a
