@@ -61,8 +61,8 @@ const DateSelect = () => {
           value={date}
           selectedDate={date}
           onChange={handleDateChange}
-          minimumDate={new Date(2020, 2)}
-          maximumDate={new Date(2023, 1)}
+          minimumDate={new Date(2020, 3)}
+          maximumDate={new Date(2023, 2)}
           locale="en"
         />
       )}
